@@ -86,13 +86,13 @@ export default {
 
   methods: {
     async getMarkers(){
-      const markers_data = await axios.get("http://127.0.0.1:8000/api/v1/home");
+      const markers_data = await axios.get("https://sheltered-river-05848.herokuapp.com/api/v1/home");
       this.markers = markers_data.data;
     },
 
     async addPosition() {
       const marker_data = await axios.post(
-        "http://127.0.0.1:8000/api/v1/home",
+        "https://sheltered-river-05848.herokuapp.com/api/v1/home",
         {
           target_name: this.inputName,
           text: this.inputPositionText,
@@ -106,7 +106,7 @@ export default {
       const $deleteCheck = window.confirm("削除しますか？");
       if($deleteCheck){
         const marker_data = await axios.delete(
-          "http://127.0.0.1:8000/api/v1/home",
+          "https://sheltered-river-05848.herokuapp.com/api/v1/home",
           {
             data: {id: id}
           }
