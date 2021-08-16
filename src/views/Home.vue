@@ -7,13 +7,6 @@
         map-type-id="terrain"
         style="width: 100%; height: 500px"
       >
-        <!-- <GmapInfoWindow
-          :key="index"
-          v-for="(m, index) in this.markers"
-          :position="m.position"
-        >
-          {{m.target_name}}
-        </GmapInfoWindow> -->
         <GmapMarker
           :key="index"
           v-for="(m, index) in this.markers"
@@ -38,7 +31,7 @@
           <tr>
             <td><input type="text" v-model="inputName" placeholder="名前を入力"></td>
             <td><input type="text" v-model="inputPositionText" placeholder="座標orURLをコピー＆ペースト"></td>
-            <td><button @click="addPosition()" class="add_btn">追加</button></td>
+            <td><button @click="addMarker()" class="add_btn">追加</button></td>
           </tr>
         </tbody>
       </table>
@@ -62,7 +55,7 @@
             <td>{{m.target_name}}</td>
             <td>{{m.north_latitude}}</td>
             <td>{{m.east_longitude}}</td>
-            <td><button @click="deletePosition(m.id)" class="delete_btn">削除</button></td>
+            <td><button @click="deleteMarker(m.id)" class="delete_btn">削除</button></td>
           </tr>
         </tbody>
       </table>
@@ -86,32 +79,38 @@ export default {
 
   methods: {
     async getMarkers(){
-      const markers_data = await axios.get("https://sheltered-river-05848.herokuapp.com/api/v1/home");
-      this.markers = markers_data.data;
+      const markersData = await axios.get(
+        "https://sheltered-river-05848.herokuapp.com/api/v1/home"
+      );
+      this.markers = markersData.data;
     },
 
-    async addPosition() {
-      const marker_data = await axios.post(
-        "https://sheltered-river-05848.herokuapp.com/api/v1/home",
-        {
-          target_name: this.inputName,
-          text: this.inputPositionText,
-        }
+    async addMarker() {
+      // const markerData = await axios.post(
+      //   "https://sheltered-river-05848.herokuapp.com/api/v1/home",
+      //   {
+      //     target_name: this.inputName,
+      //     text: this.inputPositionText,
+      //   }
+      // );
+      // console.log(markerData); //
+      const shortUrl = await axios.get(
+        "http://app.tree-web.net/short2longurl/api.cgi?url=https://goo.gl/maps/itjxT8rnj7RehZSQ6"
       );
-      console.log(marker_data); //
+      console.log(shortUrl); //
       this.getMarkers();
     },
 
-    async deletePosition(id){
+    async deleteMarker(id){
       const $deleteCheck = window.confirm("削除しますか？");
       if($deleteCheck){
-        const marker_data = await axios.delete(
+        const markerData = await axios.delete(
           "https://sheltered-river-05848.herokuapp.com/api/v1/home",
           {
             data: {id: id}
           }
         );
-        console.log(marker_data); //
+        console.log(markerData); //
         this.getMarkers();
       }
     },
