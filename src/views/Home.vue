@@ -95,7 +95,7 @@ export default {
       // );
       // console.log(markerData); //
       const shortUrl = await axios.get(
-        "https://app.tree-web.net/short2longurl/api.cgi?url=https://goo.gl/maps/itjxT8rnj7RehZSQ6"
+        "http://app.tree-web.net/short2longurl/api.cgi?url=https://goo.gl/maps/itjxT8rnj7RehZSQ6"
       );
       console.log(shortUrl); //
       this.getMarkers();
