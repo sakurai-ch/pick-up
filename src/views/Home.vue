@@ -86,18 +86,14 @@ export default {
     },
 
     async addMarker() {
-      // const markerData = await axios.post(
-      //   "https://sheltered-river-05848.herokuapp.com/api/v1/home",
-      //   {
-      //     target_name: this.inputName,
-      //     text: this.inputPositionText,
-      //   }
-      // );
-      // console.log(markerData); //
-      const shortUrl = await axios.get(
-        "https://app.tree-web.net/short2longurl/api.cgi?url=https://goo.gl/maps/itjxT8rnj7RehZSQ6"
+      const markerData = await axios.post(
+        "https://sheltered-river-05848.herokuapp.com/api/v1/home",
+        {
+          target_name: this.inputName,
+          text: this.inputPositionText,
+        }
       );
-      console.log(shortUrl); //
+      console.log(markerData); //
       this.getMarkers();
     },
 
