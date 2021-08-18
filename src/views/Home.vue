@@ -94,7 +94,11 @@ export default {
         }
       );
       console.log(markerData); //
-      this.getMarkers();
+      if(markerData.status == 200){
+        this.getMarkers();
+        this.inputName = "";
+        this.inputPositionText = "";
+      }
     },
 
     async deleteMarker(id){
